@@ -113,9 +113,31 @@
 
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
+        .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
 
-        #id_nome,
+    .column {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .row1{
+        margin-left: 65vh;
+       
+        margin-bottom: 10px;
+    }
+    
+
+    .row input {
+        margin-bottom: 5px;
+    }
+
+         #id_nome,
         #id_descricao {
+            color: white;
             margin: 15px;
             width: 200px;
             height: 30px;
@@ -134,42 +156,41 @@
             box-shadow: 0 0 10px #ED145B;
         }
 
-        #id_atualizar {
-            
-            margin-left: 120vh;
+        #id_atualizar,#id_atualizar_nome,#id_atualizar_descricao {
+            margin-top: 5px;
+            margin-right: 3vh;
             width: 200px;
             height: 30px;
             transition: all 0.3s;
             background-color: #1F2A44;
-
-            margin-top: 5px;
+            color: white;
             border-radius: 5px;
         }
-
         #id_atualizar:hover {
             transform: scale(1.1);
             z-index: 1;
             border: 1px solid #ED145B;
             box-shadow: 0 0 10px #ED145B;
         }
-
+        
         #id_excluir {
-            margin-left: 175vh;
+            color: white;
             width: 200px;
             height: 30px;
             transition: all 0.3s;
             background-color: #1F2A44;
-
-            margin-top: 5px;
+            
+            
             border-radius: 5px;
         }
-
+        
+        
         #id_excluir:hover {
             transform: scale(1.1);
             z-index: 1;
             border: 1px solid #ED145B;
             box-shadow: 0 0 10px #ED145B;
-        }
+        } 
 
         .label {
             margin-left: 15px;
@@ -198,10 +219,27 @@
 
 
 
-    <input type="text" placeholder="nome" id="id_nome"><br>
-    <input type="text" placeholder="descricao" id="id_descricao"><br>
-    <input type="text" placeholder="Insira Id da tarefa" id="id_atualizar"><br>
-    <input type="text" placeholder="Excluir pelo Id" id="id_excluir"><br>
+            <div class="container">
+                <div class="column">
+                    <div class="row">
+                        <input type="text" placeholder="nome" id="id_nome">
+                    </div>
+                    <div class="row">
+                        <input type="text" placeholder="descricao" id="id_descricao">
+                    </div>
+                </div>
+                <div class="row1">
+                    <input type="text" placeholder="Insira Id da tarefa" id="id_atualizar"><br>
+                    <input type="text" placeholder="Nome atualizado" id="id_atualizar_nome"><br>
+                    <input type="text" placeholder="Descrição atualizada" id="id_atualizar_descricao">
+                </div>
+                <div class="row">
+                        <div class="column">
+                        <input type="text" placeholder="Excluir pelo Id" id="id_excluir">
+                    </div>
+                </div>
+               
+            </div>
 
 
     <h2 class="label2"> Listar Tarefas</h2>
@@ -227,7 +265,7 @@
             descricao: descricao
         }
 
-        fetch('http://localhost:8080/tarefa/cadastrar', {
+        fetch('http://localhost:8080/tarefa/cadastrar',{
             method: 'POST',
             body: JSON.stringify(dados),
             headers: {
@@ -284,8 +322,8 @@
 
     function atualizar(){
         var atualizar = id_atualizar.value
-        var nome = id_nome.value
-        var descricao = id_descricao.value
+        var nome = id_atualizar_nome.value
+        var descricao = id_atualizar_descricao.value
 
         var dados = {
             atualizar: atualizar,
@@ -324,7 +362,7 @@
             excluir: excluir
         }
 
-        fetch(`http://localhost:8080/tarefa/deletar/{excluir}`, {
+        fetch(`http://localhost:8080/tarefa/excluir/${excluir}`, {
             method: 'DELETE',
             body: JSON.stringify(dados),
             headers: {
